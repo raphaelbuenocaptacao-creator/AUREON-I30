@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#070914" />
+  <title>AUREON V30 — Video Intelligence Engine</title>
+  <meta name="description" content="Uma palavra. 30 ideias de vídeo. Validação, roteiro e vídeo em um único fluxo." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="AUREON V30">
+      <div class="brand-mark"><strong>V</strong><small>30</small></div>
+      <div><b>AUREON</b><span>VIDEO INTELLIGENCE</span></div>
+    </a>
+    <nav class="top-actions">
+      <a class="ghost-link" href="../">I30</a>
+      <button id="historyBtn" class="ghost-btn">Histórico <span id="historyCount">0</span></button>
+      <span class="online"><i></i> Engine online</span>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="setupSection">
+      <div class="eyebrow">✦ AUREON CREATOR ENGINE</div>
+      <h1>Uma palavra.<br><span>30 ideias de vídeo.</span></h1>
+      <p class="hero-copy">Escolha onde publicar, o objetivo e a duração. O V30 cria 30 conceitos, compara o potencial, escreve o roteiro e transforma a melhor ideia em vídeo.</p>
+
+      <div class="command-card">
+        <label for="topicInput">O que você quer transformar em conteúdo?</label>
+        <div class="command-row">
+          <span class="spark">⌁</span>
+          <input id="topicInput" autocomplete="off" placeholder="Ex.: academia, hotel, AUREON-I30, captação..." />
+          <button id="generateBtn" class="primary-btn">GERAR 30 IDEIAS <span>→</span></button>
+        </div>
+        <div class="quick-row"><span>Experimente:</span><button data-topic="Academia">Academia</button><button data-topic="Hotel">Hotel</button><button data-topic="AUREON-I30">AUREON-I30</button><button data-topic="Captação">Captação</button><button data-topic="Imobiliária">Imobiliária</button></div>
+      </div>
+
+      <div class="config-grid">
+        <div class="config-block span-2">
+          <div class="config-title"><span>01</span><div><b>Plataforma</b><small>O V30 adapta formato, ritmo e CTA.</small></div></div>
+          <div class="platform-grid" id="platformGrid">
+            <button class="platform active" data-platform="Instagram Reels" data-ratio="9:16"><b>◎</b><span>Instagram</span><small>Reels</small></button>
+            <button class="platform" data-platform="TikTok" data-ratio="9:16"><b>♪</b><span>TikTok</span><small>Vertical</small></button>
+            <button class="platform" data-platform="YouTube Shorts" data-ratio="9:16"><b>▶</b><span>YouTube</span><small>Shorts</small></button>
+            <button class="platform" data-platform="YouTube" data-ratio="16:9"><b>▶</b><span>YouTube</span><small>Vídeo</small></button>
+            <button class="platform" data-platform="Instagram Stories" data-ratio="9:16"><b>◉</b><span>Instagram</span><small>Stories</small></button>
+            <button class="platform" data-platform="Facebook Reels" data-ratio="9:16"><b>f</b><span>Facebook</span><small>Reels</small></button>
+            <button class="platform" data-platform="Facebook Feed" data-ratio="16:9"><b>f</b><span>Facebook</span><small>Feed</small></button>
+            <button class="platform" data-platform="Anúncio" data-ratio="9:16"><b>↗</b><span>Anúncio</span><small>Performance</small></button>
+          </div>
+        </div>
+
+        <div class="config-block">
+          <div class="config-title"><span>02</span><div><b>Objetivo</b><small>Qual resultado você quer?</small></div></div>
+          <div class="chip-set" id="objectiveSet">
+            <button class="chip active" data-value="Viralizar">Viralizar</button><button class="chip" data-value="Vender">Vender</button><button class="chip" data-value="Educar">Educar</button><button class="chip" data-value="Atrair seguidores">Atrair seguidores</button><button class="chip" data-value="Apresentar produto">Apresentar produto</button><button class="chip" data-value="Gerar autoridade">Gerar autoridade</button>
+          </div>
+        </div>
+
+        <div class="config-block">
+          <div class="config-title"><span>03</span><div><b>Duração</b><small>Escolha ou deixe o V30 decidir.</small></div></div>
+          <div class="chip-set" id="durationSet">
+            <button class="chip active" data-value="auto">Automática</button><button class="chip" data-value="15">15s</button><button class="chip" data-value="30">30s</button><button class="chip" data-value="45">45s</button><button class="chip" data-value="60">60s</button>
+          </div>
+          <div class="smart-duration"><i></i><span id="durationHint">Recomendação: 30s para Reels com potencial de retenção.</span></div>
+        </div>
+
+        <div class="config-block span-2">
+          <div class="config-title"><span>04</span><div><b>Presença</b><small>Como o conteúdo será produzido?</small></div></div>
+          <div class="presence-grid" id="presenceSet">
+            <button class="presence active" data-value="100% IA"><b>✦</b><span>100% IA</span><small>Sem aparecer</small></button>
+            <button class="presence" data-value="Eu apareço"><b>●</b><span>Eu apareço</span><small>Roteiro para câmera</small></button>
+            <button class="presence" data-value="Só voz"><b>◖</b><span>Só voz</span><small>B-roll + narração</small></button>
+            <button class="presence" data-value="Avatar IA"><b>◇</b><span>Avatar IA</span><small>Apresentador digital</small></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ideasSection" class="ideas-section hidden">
+      <div class="section-head">
+        <div><div class="eyebrow">✦ EXPLORAÇÃO ATIVA</div><h2>30 ideias para <span id="topicTitle"></span></h2><p id="ideasSubtitle">O V30 criou 30 caminhos de conteúdo para o seu objetivo.</p></div>
+        <div class="head-actions"><button id="newSearchBtn" class="ghost-btn">Nova busca</button><button id="validateBtn" class="primary-btn">VALIDAR AS 30 ↗</button></div>
+      </div>
+
+      <div id="winnerCard" class="winner-card hidden"></div>
+
+      <div class="filters-row">
+        <div class="filter-tabs"><button class="filter active" data-filter="all">Todas <span>30</span></button><button class="filter" data-filter="top10">Top 10</button><button class="filter" data-filter="fast">Alta retenção</button><button class="filter" data-filter="sales">Mais comercial</button></div>
+        <select id="sortSelect"><option value="original">Ordem original</option><option value="score">Maior score</option><option value="hook">Melhor hook</option><option value="retention">Maior retenção</option></select>
+      </div>
+      <div id="ideasGrid" class="ideas-grid"></div>
+    </section>
+
+    <section id="studioSection" class="studio-section hidden">
+      <div class="section-head studio-head">
+        <div><div class="eyebrow">✦ V30 PRODUCTION STUDIO</div><h2>Do conceito ao <span>vídeo.</span></h2><p>Roteiro, cenas, narração, legenda e renderização em um único lugar.</p></div>
+        <button id="backIdeasBtn" class="ghost-btn">← Voltar às ideias</button>
+      </div>
+
+      <div class="studio-grid">
+        <aside class="blueprint-panel">
+          <div class="blueprint-top"><span id="studioRank">#01</span><strong id="studioScore">—/100</strong></div>
+          <h3 id="studioTitle"></h3>
+          <p id="studioConcept"></p>
+          <div class="metric-row" id="studioMetrics"></div>
+          <div class="divider"></div>
+          <div class="script-block"><label>HOOK</label><p id="scriptHook"></p></div>
+          <div class="script-block"><label>NARRAÇÃO</label><p id="scriptNarration"></p></div>
+          <div class="script-block"><label>CTA</label><p id="scriptCta"></p></div>
+          <div class="blueprint-actions"><button id="speakBtn" class="ghost-btn">▶ Ouvir narração</button><button id="copyScriptBtn" class="ghost-btn">Copiar roteiro</button></div>
+        </aside>
+
+        <div class="canvas-panel">
+          <div class="canvas-toolbar"><div><span class="status-dot"></span><b>V30 Visual Renderer</b><small id="formatBadge">1080 × 1920 · 9:16</small></div><div class="render-state" id="renderState">Pronto para visualizar</div></div>
+          <div class="canvas-shell vertical" id="canvasShell"><canvas id="videoCanvas" width="1080" height="1920"></canvas><button id="previewBtn" class="play-overlay">▶<span>PREVIEW</span></button></div>
+          <div class="timeline"><div class="timeline-progress" id="timelineProgress"></div></div>
+          <div class="render-actions"><button id="renderBtn" class="primary-btn">✦ CRIAR VÍDEO</button><button id="downloadBtn" class="ghost-btn" disabled>BAIXAR VÍDEO</button></div>
+          <p class="render-note">O V30 gera agora um vídeo motion-design real no navegador. Nesta versão, imagens/clipes fotorealistas e voz no arquivo final entram na próxima camada de IA.</p>
+        </div>
+      </div>
+
+      <div class="storyboard-wrap">
+        <div class="storyboard-head"><div><span>STORYBOARD</span><h3 id="storyboardTitle">Cenas do vídeo</h3></div><button id="copyCaptionBtn" class="ghost-btn">Copiar legenda do post</button></div>
+        <div id="storyboard" class="storyboard"></div>
+        <div class="caption-card"><label>LEGENDA PRONTA PARA POSTAR</label><p id="postCaption"></p></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="ideaModal" class="modal hidden"><div class="modal-card"><button class="modal-close" data-close="ideaModal">×</button><div id="ideaModalBody"></div></div></div>
+  <div id="historyModal" class="modal hidden"><div class="modal-card compact"><button class="modal-close" data-close="historyModal">×</button><div class="eyebrow">SEU HISTÓRICO</div><h3>Explorações recentes</h3><div id="historyList" class="history-list"></div></div></div>
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
