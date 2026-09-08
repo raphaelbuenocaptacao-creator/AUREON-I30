@@ -1,1 +1,46 @@
-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070B14" />
+  <meta name="description" content="AUREON-I30 — transforme um tema em 30 oportunidades de SaaS, valide com score e gere o prompt completo do produto." />
+  <title>AUREON-I30 — 30 ideias. 1 melhor oportunidade.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <div class="aurora aurora-one"></div><div class="aurora aurora-two"></div><div class="grid-bg"></div>
+  <header class="topbar">
+    <a href="#" class="brand" aria-label="AUREON-I30"><span class="brand-mark">I<span>30</span></span><span class="brand-copy"><strong>AUREON</strong><small>IDEA ENGINE</small></span></a>
+    <div class="top-actions"><button id="historyBtn" class="ghost-btn" type="button">Histórico <span id="historyCount">0</span></button><span class="status"><i></i> Engine online</span></div>
+  </header>
+  <main class="shell">
+    <section id="hero" class="hero">
+      <div class="eyebrow"><span>✦</span> AUREON INTELLIGENCE ENGINE</div>
+      <h1>Uma palavra.<br><span>30 oportunidades.</span></h1>
+      <p class="hero-copy">Digite um mercado, produto, profissão ou problema. O I30 transforma o ponto de partida em ideias de SaaS, compara o potencial e revela a melhor oportunidade.</p>
+      <form id="ideaForm" class="idea-form">
+        <div class="input-shell"><span class="input-icon">⌁</span><input id="topicInput" autocomplete="off" maxlength="80" placeholder="Ex.: hotel, pet shop, cobrança, imobiliária..." aria-label="Tema para explorar" /><button id="generateBtn" type="submit">GERAR 30 IDEIAS <span>→</span></button></div>
+        <div class="examples"><span>Experimente:</span><button type="button" data-example="Hotel">Hotel</button><button type="button" data-example="Academia">Academia</button><button type="button" data-example="Imobiliária">Imobiliária</button><button type="button" data-example="Cobrança">Cobrança</button><button type="button" data-example="Turismo">Turismo</button></div>
+      </form>
+      <div class="hero-metrics"><div><strong>30</strong><span>ideias por rodada</span></div><div><strong>7</strong><span>critérios de score</span></div><div><strong>100</strong><span>pontos possíveis</span></div><div><strong>1</strong><span>melhor oportunidade</span></div></div>
+    </section>
+    <section id="workspace" class="workspace hidden">
+      <div class="workspace-head"><div><div class="eyebrow"><span>✦</span> EXPLORAÇÃO ATIVA</div><h2 id="workspaceTitle">30 ideias para <span></span></h2><p>Explore as oportunidades e depois valide todas de uma vez.</p></div><div class="head-actions"><button id="newSearchBtn" class="ghost-btn" type="button">Nova busca</button><button id="validateBtn" class="primary-btn" type="button">VALIDAR AS 30 <span>↗</span></button></div></div>
+      <div id="validationBanner" class="validation-banner hidden"><div class="validation-scan"><div class="scan-orb"></div><div><strong>Analisando oportunidades...</strong><span id="validationText">Comparando problema, receita, mercado e recorrência.</span></div></div><div class="progress"><i id="progressBar"></i></div></div>
+      <div id="winnerPanel" class="winner-panel hidden"><div class="winner-topline"><span class="winner-label">🏆 MELHOR OPORTUNIDADE</span><span id="winnerScore" class="winner-score">94/100</span></div><div class="winner-content"><div><h3 id="winnerName">Nome</h3><p id="winnerPitch">Pitch</p><div id="winnerTags" class="tags"></div></div><button id="winnerPromptBtn" class="winner-cta" type="button">GERAR PROMPT COMPLETO <span>→</span></button></div><div id="winnerReason" class="winner-reason"></div></div>
+      <div class="toolbar"><div class="filter-group"><button class="filter active" data-filter="all" type="button">Todas <span>30</span></button><button class="filter" data-filter="top" type="button">Top 10</button><button class="filter" data-filter="easy" type="button">MVP rápido</button><button class="filter" data-filter="recurring" type="button">Alta recorrência</button></div><select id="sortSelect" aria-label="Ordenação"><option value="default">Ordem original</option><option value="score">Maior score</option><option value="mvp">MVP mais fácil</option><option value="revenue">Maior receita</option></select></div>
+      <div id="ideasGrid" class="ideas-grid"></div>
+    </section>
+  </main>
+  <aside id="ideaDrawer" class="drawer" aria-hidden="true"><div class="drawer-backdrop" data-close-drawer></div><div class="drawer-panel"><button class="drawer-close" data-close-drawer type="button">×</button><div id="drawerContent"></div></div></aside>
+  <aside id="promptModal" class="modal" aria-hidden="true"><div class="modal-backdrop" data-close-modal></div><div class="modal-card"><div class="modal-head"><div><span class="mini-label">BUILD BLUEPRINT</span><h3 id="promptTitle">Prompt completo</h3></div><button data-close-modal class="modal-close" type="button">×</button></div><div id="promptSummary" class="prompt-summary"></div><textarea id="promptOutput" readonly></textarea><div class="modal-actions"><button id="copyPromptBtn" class="primary-btn" type="button">COPIAR PROMPT</button><button id="downloadPromptBtn" class="ghost-btn" type="button">BAIXAR .TXT</button></div></div></aside>
+  <aside id="historyModal" class="modal" aria-hidden="true"><div class="modal-backdrop" data-close-history></div><div class="modal-card history-card"><div class="modal-head"><div><span class="mini-label">SESSÕES SALVAS</span><h3>Histórico I30</h3></div><button data-close-history class="modal-close" type="button">×</button></div><div id="historyList" class="history-list"></div></div></aside>
+  <footer><span>AUREON-I30</span><span>Ideia → 30 oportunidades → Validação → Prompt → Produto</span><span>v1.0</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
