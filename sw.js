@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'aureon-i30-v1-safe-shell';
+const CACHE_VERSION = 'aureon-i30-v2-private-vary-range-safe-shell';
 const SHELL_CACHE = CACHE_VERSION;
 const SHELL = ['./', './index.html', './styles.css', './app.js', './offline.html', './icon-192.png', './icon-512.png', './icon-512-maskable.png'];
 const PRIVATE_PATH = /\/(?:api|auth|login|logout|session|account|admin|private|me)(?:\/|$)/i;
@@ -6,17 +6,17 @@ const SENSITIVE_QUERY = /(?:token|access_token|refresh_token|password|senha|secr
 function requestIsSensitive(request) {
   const url = new URL(request.url);
   if (request.method !== 'GET') return true;
-  if (request.headers.has('authorization') || request.headers.has('cookie') || request.headers.has('range')) return true;
+  if (request.headers.has('authorization') || request.headers.has('cookie') || request.headers.has('range') || request.headers.has('if-range')) return true;
   if (PRIVATE_PATH.test(url.pathname) || SENSITIVE_QUERY.test(url.search.slice(1))) return true;
   return false;
 }
 function responseIsCacheSafe(response) {
   if (!response || !response.ok || response.type === 'opaque') return false;
   const cc = (response.headers.get('cache-control') || '').toLowerCase();
-  const vary = (response.headers.get('vary') || '').toLowerCase().split(',').map(v => v.trim());
+  const vary = (response.headers.get('vary') || '').toLowerCase().split(',').map(v => v.trim()).filter(Boolean);
   if (cc.includes('private') || cc.includes('no-store')) return false;
   if (response.headers.has('set-cookie') || response.headers.has('content-range')) return false;
-  if (vary.includes('*') || vary.includes('cookie') || vary.includes('authorization')) return false;
+  if (vary.includes('*') || vary.includes('cookie') || vary.includes('authorization') || vary.includes('range')) return false;
   return true;
 }
 self.addEventListener('install', event => {
