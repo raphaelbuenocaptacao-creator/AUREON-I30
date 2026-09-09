@@ -21,7 +21,7 @@
   <div class="aurora aurora-one"></div><div class="aurora aurora-two"></div><div class="grid-bg"></div>
   <header class="topbar">
     <a href="#" class="brand" aria-label="AUREON-I30"><span class="brand-mark">I<span>30</span></span><span class="brand-copy"><strong>AUREON</strong><small>IDEA ENGINE</small></span></a>
-    <div class="top-actions"><button id="historyBtn" class="ghost-btn" type="button">Histórico <span id="historyCount">0</span></button><span class="status"><i></i> Engine online</span></div>
+    <div class="top-actions"><button id="installPwaBtn" class="ghost-btn" type="button" style="display:none">Instalar app</button><button id="historyBtn" class="ghost-btn" type="button">Histórico <span id="historyCount">0</span></button><span class="status"><i></i> Engine online</span></div>
   </header>
   <main class="shell">
     <section id="hero" class="hero">
@@ -48,9 +48,33 @@
   <footer><span>AUREON-I30</span><span>Ideia → 30 oportunidades → Validação → Prompt → Produto</span><span>v1.0</span></footer>
   <script src="app.js"></script>
   <script>
-    if ('serviceWorker' in navigator) {
+    let deferredInstallPrompt = null;
+    const installPwaBtn = document.getElementById('installPwaBtn');
+
+    window.addEventListener('beforeinstallprompt', event => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      if (installPwaBtn) installPwaBtn.style.display = '';
+    });
+
+    if (installPwaBtn) {
+      installPwaBtn.addEventListener('click', async () => {
+        if (!deferredInstallPrompt) return;
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        installPwaBtn.style.display = 'none';
+      });
+    }
+
+    window.addEventListener('appinstalled', () => {
+      deferredInstallPrompt = null;
+      if (installPwaBtn) installPwaBtn.style.display = 'none';
+    });
+
+    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=1-safe-shell', { scope: './', updateViaCache: 'none' })
+        navigator.serviceWorker.register('./sw.js?v=2-private-vary-range-safe-shell', { scope: './', updateViaCache: 'none' })
           .then(registration => registration.update())
           .catch(error => console.warn('PWA service worker não registrado:', error));
       });
