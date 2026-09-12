@@ -74,7 +74,7 @@
 
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=2-private-vary-range-safe-shell', { scope: './', updateViaCache: 'none' })
+        navigator.serviceWorker.register('./sw.js?v=aureon-i30-v3-private-vary-range-safe-shell', { scope: './', updateViaCache: 'none' })
           .then(registration => registration.update())
           .catch(error => console.warn('PWA service worker não registrado:', error));
       });
