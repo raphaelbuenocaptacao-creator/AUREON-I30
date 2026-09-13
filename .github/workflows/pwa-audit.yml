@@ -1,0 +1,90 @@
+name: AUREON-I30 PWA Audit
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate manifest and mobile metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f manifest.webmanifest
+          test -f sw.js
+          test -f offline.html
+          test -f icon-192.png
+          test -f icon-512.png
+          test -f icon-512-maskable.png
+          python3 - <<'PY'
+          import json, struct
+          from pathlib import Path
+
+          manifest = json.loads(Path('manifest.webmanifest').read_text())
+          for key in ('name', 'short_name', 'start_url', 'display', 'theme_color', 'icons'):
+              assert manifest.get(key), f'manifest missing {key}'
+          assert manifest['display'] == 'standalone'
+          icons = manifest['icons']
+          assert any(i.get('sizes') == '192x192' and i.get('type') == 'image/png' for i in icons)
+          assert any(i.get('sizes') == '512x512' and i.get('type') == 'image/png' for i in icons)
+          assert any(i.get('sizes') == '512x512' and 'maskable' in i.get('purpose', '') for i in icons)
+
+          def png_size(path):
+              data = Path(path).read_bytes()[:24]
+              assert data[:8] == b'\x89PNG\r\n\x1a\n', f'{path} is not PNG'
+              return struct.unpack('>II', data[16:24])
+
+          assert png_size('icon-192.png') == (192, 192)
+          assert png_size('icon-512.png') == (512, 512)
+          assert png_size('icon-512-maskable.png') == (512, 512)
+          PY
+          grep -q 'rel="manifest" href="manifest.webmanifest"' index.html
+          grep -q 'name="viewport"' index.html
+          grep -q 'name="theme-color"' index.html
+          grep -q 'name="mobile-web-app-capable"' index.html
+          grep -q 'name="apple-mobile-web-app-capable"' index.html
+          grep -q 'beforeinstallprompt' index.html
+
+      - name: Validate secure versioned service worker
+        shell: bash
+        run: |
+          set -euo pipefail
+          sw_version=$(sed -n "s/^const CACHE_VERSION = '\([^']*\)';$/\1/p" sw.js)
+          test -n "$sw_version"
+          grep -Fq "sw.js?v=${sw_version}" index.html
+          grep -Fq "updateViaCache: 'none'" index.html
+          grep -Fq "location.protocol === 'https:'" index.html
+          grep -Fq "location.hostname === 'localhost'" index.html
+          grep -Fq "request.headers.has('authorization')" sw.js
+          grep -Fq "request.headers.has('cookie')" sw.js
+          grep -Fq "request.headers.has('range')" sw.js
+          grep -Fq "request.headers.has('if-range')" sw.js
+          grep -Fq "cc.includes('private')" sw.js
+          grep -Fq "cc.includes('no-store')" sw.js
+          grep -Fq "response.headers.has('set-cookie')" sw.js
+          grep -Fq "response.headers.has('content-range')" sw.js
+          grep -Fq "vary.includes('authorization')" sw.js
+          grep -Fq "vary.includes('cookie')" sw.js
+          grep -Fq "vary.includes('range')" sw.js
+          grep -Fq "vary.includes('if-range')" sw.js
+          grep -Fq "caches.delete(key)" sw.js
+          grep -Fq "caches.match('./offline.html')" sw.js
+
+      - name: Validate shell and API isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq "url.origin !== self.location.origin" sw.js
+          grep -Fq "requestIsSensitive(request)" sw.js
+          grep -Eq "api\|auth\|login\|logout\|session\|account\|admin\|private\|me" sw.js
+          grep -Fq "request.mode === 'navigate'" sw.js
