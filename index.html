@@ -4,36 +4,58 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#070B14" />
-  <meta name="description" content="AUREON-I30 — transforme um tema em 30 oportunidades de SaaS, valide com score e gere o prompt completo do produto." />
+  <meta name="description" content="I30 — transforme uma ideia em post, roteiro, prompt, oferta, aplicativo, conteúdo, lançamento ou 30 oportunidades de SaaS." />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="AUREON I30" />
-  <title>AUREON-I30 — 30 ideias. 1 melhor oportunidade.</title>
+  <meta name="apple-mobile-web-app-title" content="I30" />
+  <title>I30 — Você tem uma ideia? O I30 transforma.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="creator.css" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icon-192.png" />
 </head>
 <body>
   <div class="aurora aurora-one"></div><div class="aurora aurora-two"></div><div class="grid-bg"></div>
   <header class="topbar">
-    <a href="#" class="brand" aria-label="AUREON-I30"><span class="brand-mark">I<span>30</span></span><span class="brand-copy"><strong>AUREON</strong><small>IDEA ENGINE</small></span></a>
-    <div class="top-actions"><button id="installPwaBtn" class="ghost-btn" type="button" style="display:none">Instalar app</button><button id="historyBtn" class="ghost-btn" type="button">Histórico <span id="historyCount">0</span></button><span class="status"><i></i> Engine online</span></div>
+    <a href="#creatorHub" class="brand" aria-label="I30"><span class="brand-mark">I<span>30</span></span><span class="brand-copy"><strong>AUREON</strong><small>IDEA ENGINE</small></span></a>
+    <div class="top-actions"><button id="installPwaBtn" class="ghost-btn" type="button" style="display:none">Instalar app</button><button id="creatorHistoryBtn" class="ghost-btn" type="button">Minhas criações</button><button id="historyBtn" class="ghost-btn" type="button">Histórico SaaS <span id="historyCount">0</span></button><span class="status"><i></i> Engine online</span></div>
   </header>
+
   <main class="shell">
-    <section id="hero" class="hero">
-      <div class="eyebrow"><span>✦</span> AUREON INTELLIGENCE ENGINE</div>
+    <section id="creatorHub" class="creator-hub">
+      <div class="creator-shell">
+        <div class="creator-start">
+          <div class="creator-kicker">✦ I30 CREATOR ENGINE</div>
+          <h1>Você tem uma ideia?<br><span>O I30 transforma.</span></h1>
+          <p class="creator-lead">Escreva sua ideia, negócio, problema ou objetivo. Depois escolha o que quer criar. O I30 gera uma primeira versão real para você usar, copiar e evoluir.</p>
+          <div class="creator-input-row"><textarea id="creatorIdeaInput" maxlength="500" placeholder="Ex.: Quero divulgar uma hamburgueria nova; quero criar um app para academia; quero vender meu curso..." aria-label="Descreva sua ideia"></textarea></div>
+          <p class="creator-note">A geração local funciona sem login e sem chave privada. O módulo de vídeo cria um pacote de produção; não afirma renderizar um MP4.</p>
+          <p id="creatorMessage" class="creator-message" hidden></p>
+          <div class="creator-current"><strong id="creatorCurrentIdea">Escolha o que você quer criar</strong><span>12 caminhos de criação</span></div>
+          <div id="creatorTypeGrid" class="creator-type-grid" aria-label="Formatos de criação"></div>
+        </div>
+        <section id="creatorResult" class="hidden" aria-live="polite">
+          <div class="creator-result-head"><div><div class="creator-kicker">RESULTADO I30</div><h2 id="creatorResultTitle"></h2></div><div class="creator-result-actions"><button id="creatorCopyBtn" class="primary-btn" type="button">COPIAR RESULTADO</button><button id="creatorBackBtn" class="ghost-btn" type="button">CRIAR OUTRO FORMATO</button></div></div>
+          <div id="creatorResultSections" class="creator-result-sections"></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="hero" class="hero hidden">
+      <div class="eyebrow"><span>✦</span> I30 · 30 IDEIAS DE SAAS</div>
       <h1>Uma palavra.<br><span>30 oportunidades.</span></h1>
-      <p class="hero-copy">Digite um mercado, produto, profissão ou problema. O I30 transforma o ponto de partida em ideias de SaaS, compara o potencial e revela a melhor oportunidade.</p>
+      <p class="hero-copy">O motor original do I30 continua aqui: transforme um mercado, produto, profissão ou problema em 30 caminhos de SaaS, compare o potencial e revele a melhor oportunidade.</p>
       <form id="ideaForm" class="idea-form">
         <div class="input-shell"><span class="input-icon">⌁</span><input id="topicInput" autocomplete="off" maxlength="80" placeholder="Ex.: hotel, pet shop, cobrança, imobiliária..." aria-label="Tema para explorar" /><button id="generateBtn" type="submit">GERAR 30 IDEIAS <span>→</span></button></div>
         <div class="examples"><span>Experimente:</span><button type="button" data-example="Hotel">Hotel</button><button type="button" data-example="Academia">Academia</button><button type="button" data-example="Imobiliária">Imobiliária</button><button type="button" data-example="Cobrança">Cobrança</button><button type="button" data-example="Turismo">Turismo</button></div>
       </form>
       <div class="hero-metrics"><div><strong>30</strong><span>ideias por rodada</span></div><div><strong>7</strong><span>critérios de score</span></div><div><strong>100</strong><span>pontos possíveis</span></div><div><strong>1</strong><span>melhor oportunidade</span></div></div>
     </section>
+
     <section id="workspace" class="workspace hidden">
       <div class="workspace-head"><div><div class="eyebrow"><span>✦</span> EXPLORAÇÃO ATIVA</div><h2 id="workspaceTitle">30 ideias para <span></span></h2><p>Explore as oportunidades e depois valide todas de uma vez.</p></div><div class="head-actions"><button id="newSearchBtn" class="ghost-btn" type="button">Nova busca</button><button id="validateBtn" class="primary-btn" type="button">VALIDAR AS 30 <span>↗</span></button></div></div>
       <div id="validationBanner" class="validation-banner hidden"><div class="validation-scan"><div class="scan-orb"></div><div><strong>Analisando oportunidades...</strong><span id="validationText">Comparando problema, receita, mercado e recorrência.</span></div></div><div class="progress"><i id="progressBar"></i></div></div>
@@ -42,42 +64,27 @@
       <div id="ideasGrid" class="ideas-grid"></div>
     </section>
   </main>
+
+  <aside id="creatorHistoryPanel" class="creator-history-panel hidden" aria-label="Histórico de criações"><div class="creator-history-card"><div class="creator-history-head"><h3>Minhas criações</h3><button id="creatorHistoryClose" class="ghost-btn" type="button">Fechar</button></div><div id="creatorHistoryList" class="creator-history-list"></div></div></aside>
   <aside id="ideaDrawer" class="drawer" aria-hidden="true"><div class="drawer-backdrop" data-close-drawer></div><div class="drawer-panel"><button class="drawer-close" data-close-drawer type="button">×</button><div id="drawerContent"></div></div></aside>
   <aside id="promptModal" class="modal" aria-hidden="true"><div class="modal-backdrop" data-close-modal></div><div class="modal-card"><div class="modal-head"><div><span class="mini-label">BUILD BLUEPRINT</span><h3 id="promptTitle">Prompt completo</h3></div><button data-close-modal class="modal-close" type="button">×</button></div><div id="promptSummary" class="prompt-summary"></div><textarea id="promptOutput" readonly></textarea><div class="modal-actions"><button id="copyPromptBtn" class="primary-btn" type="button">COPIAR PROMPT</button><button id="downloadPromptBtn" class="ghost-btn" type="button">BAIXAR .TXT</button></div></div></aside>
-  <aside id="historyModal" class="modal" aria-hidden="true"><div class="modal-backdrop" data-close-history></div><div class="modal-card history-card"><div class="modal-head"><div><span class="mini-label">SESSÕES SALVAS</span><h3>Histórico I30</h3></div><button data-close-history class="modal-close" type="button">×</button></div><div id="historyList" class="history-list"></div></div></aside>
-  <footer><span>AUREON-I30</span><span>Ideia → 30 oportunidades → Validação → Prompt → Produto</span><span>v1.0</span></footer>
+  <aside id="historyModal" class="modal" aria-hidden="true"><div class="modal-backdrop" data-close-history></div><div class="modal-card history-card"><div class="modal-head"><div><span class="mini-label">SESSÕES SALVAS</span><h3>Histórico 30 SaaS</h3></div><button data-close-history class="modal-close" type="button">×</button></div><div id="historyList" class="history-list"></div></div></aside>
+
+  <footer><span>I30 · AUREON</span><span>Ideia → escolha o formato → crie → evolua.</span><span>Creator Engine</span></footer>
+
+  <script src="creator/catalog.js"></script>
+  <script src="creator/generators.js"></script>
+  <script src="creator/history.js"></script>
   <script src="app.js"></script>
+  <script src="creator/ui.js"></script>
   <script>
     let deferredInstallPrompt = null;
     const installPwaBtn = document.getElementById('installPwaBtn');
-
-    window.addEventListener('beforeinstallprompt', event => {
-      event.preventDefault();
-      deferredInstallPrompt = event;
-      if (installPwaBtn) installPwaBtn.style.display = '';
-    });
-
-    if (installPwaBtn) {
-      installPwaBtn.addEventListener('click', async () => {
-        if (!deferredInstallPrompt) return;
-        deferredInstallPrompt.prompt();
-        await deferredInstallPrompt.userChoice;
-        deferredInstallPrompt = null;
-        installPwaBtn.style.display = 'none';
-      });
-    }
-
-    window.addEventListener('appinstalled', () => {
-      deferredInstallPrompt = null;
-      if (installPwaBtn) installPwaBtn.style.display = 'none';
-    });
-
+    window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredInstallPrompt = event; if (installPwaBtn) installPwaBtn.style.display = ''; });
+    if (installPwaBtn) installPwaBtn.addEventListener('click', async () => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; installPwaBtn.style.display = 'none'; });
+    window.addEventListener('appinstalled', () => { deferredInstallPrompt = null; if (installPwaBtn) installPwaBtn.style.display = 'none'; });
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=aureon-i30-v3-private-vary-range-safe-shell', { scope: './', updateViaCache: 'none' })
-          .then(registration => registration.update())
-          .catch(error => console.warn('PWA service worker não registrado:', error));
-      });
+      window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js?v=aureon-i30-v4-creator-engine', { scope: './', updateViaCache: 'none' }).then(registration => registration.update()).catch(error => console.warn('PWA service worker não registrado:', error)); });
     }
   </script>
 </body>
