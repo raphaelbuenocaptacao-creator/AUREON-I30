@@ -1,6 +1,6 @@
-const CACHE_VERSION = 'aureon-i30-v3-private-vary-range-safe-shell';
+const CACHE_VERSION = 'aureon-i30-v4-creator-engine';
 const SHELL_CACHE = CACHE_VERSION;
-const SHELL = ['./', './index.html', './styles.css', './app.js', './offline.html', './icon-192.png', './icon-512.png', './icon-512-maskable.png'];
+const SHELL = ['./', './index.html', './styles.css', './creator.css', './app.js', './creator/catalog.js', './creator/generators.js', './creator/history.js', './creator/ui.js', './offline.html', './icon-192.png', './icon-512.png', './icon-512-maskable.png'];
 const PRIVATE_PATH = /\/(?:api|auth|login|logout|session|account|admin|private|me)(?:\/|$)/i;
 const SENSITIVE_QUERY = /(?:token|access_token|refresh_token|password|senha|secret|key|session|auth)=/i;
 function requestIsSensitive(request) {
