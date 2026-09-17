@@ -14,7 +14,9 @@ const catalog = load('creator/catalog.js');
 const generators = load('creator/generators.js');
 const history = load('creator/history.js');
 
-assert.equal(catalog.CREATION_TYPES.length, 12, 'I30 deve expor 12 formatos na primeira versão');
+assert.equal(catalog.CREATION_TYPES.length, 12, 'I30 deve expor 12 formatos');
+assert.equal(catalog.CREATION_TYPES[0].id, 'appIdea', 'Criar Aplicativo deve ser a ação principal');
+assert.equal(catalog.CREATION_TYPES[0].primary, true, 'Criar Aplicativo deve estar destacado como principal');
 assert.ok(catalog.CREATION_TYPES.some(x => x.id === 'post'));
 assert.ok(catalog.CREATION_TYPES.some(x => x.id === 'video'));
 assert.ok(catalog.CREATION_TYPES.some(x => x.id === 'saas30'));
@@ -28,6 +30,13 @@ for (const type of catalog.CREATION_TYPES.filter(x => x.id !== 'saas30')) {
   assert.ok(result.plainText.includes('hamburgueria'), `${type.id} precisa usar a ideia do usuário`);
   assert.equal(result.source, 'local');
 }
+
+const app = generators.generateCreation({ type: 'appIdea', idea: 'controle de academia', context: {} });
+for (const heading of ['Nome do produto','Objetivo','Telas','Funcionalidades','Dados e backend','Visual','Prompt para construir']) {
+  assert.ok(app.sections.some(section => section.heading === heading), `blueprint de app precisa conter ${heading}`);
+}
+assert.ok(/PWA/i.test(app.plainText));
+assert.ok(/Supabase/i.test(app.plainText));
 
 const video = generators.generateCreation({ type: 'video', idea: 'campanha para academia', context: {} });
 assert.ok(/pacote de produção/i.test(video.plainText));
