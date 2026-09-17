@@ -48,6 +48,9 @@ const ui = fs.readFileSync('creator/ui.js', 'utf8');
 assert.ok(ui.includes('tabContent'), 'UI must keep contextual content per tab');
 assert.ok(ui.includes('secondaryActions'), 'UI must keep contextual secondary actions');
 assert.ok(ui.includes('visualSets'), 'UI must keep varied catalog visuals');
+assert.ok(ui.includes("running:{'Corridas'"), 'Running preview must have contextual history content');
+assert.ok(ui.includes("'Mapa':['Percurso de hoje"), 'Running map tab must show route-specific content');
+assert.ok(ui.includes("'Evolução':['Semana atual"), 'Running evolution tab must show progress-specific content');
 assert.ok(ui.includes('instagram.com/aureon_saas'), 'AUREON Instagram lead must be preserved');
 
 console.log('I30 domain preview regression suite passed');
